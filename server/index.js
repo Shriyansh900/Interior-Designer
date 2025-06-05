@@ -12,7 +12,7 @@ const PORT = process.env.PORT || 5000;
 // Middleware
 app.use(cors({
   origin: process.env.NODE_ENV === 'production' 
-    ? 'https://elegance-interiors.vercel.app' 
+    ? 'https://interior-designer-gold.vercel.app/' 
     : 'http://localhost:5173',
   credentials: true
 }));
