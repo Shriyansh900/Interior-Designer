@@ -4,7 +4,8 @@ import { useInView } from 'react-intersection-observer';
 import { Send, Mail, Phone, MapPin } from 'lucide-react';
 import axios from 'axios';
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+// Update this to your actual Render backend URL
+const API_URL = import.meta.env.VITE_API_URL || 'https://interior-designer-hpoi.onrender.com';
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -39,7 +40,17 @@ const Contact = () => {
     setStatus((prevStatus) => ({ ...prevStatus, submitting: true }));
 
     try {
-      const response = await axios.post(`${API_URL}/api/contact`, formData);
+      console.log('Submitting to:', `${API_URL}/api/contact`);
+      console.log('Form data:', formData);
+      
+      const response = await axios.post(`${API_URL}/api/contact`, formData, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        timeout: 10000, // 10 second timeout
+      });
+      
+      console.log('Response:', response);
       
       if (response.status === 200) {
         setStatus({
@@ -55,12 +66,25 @@ const Contact = () => {
         });
       }
     } catch (error) {
+      console.error('Submission error:', error);
+      console.error('Error response:', error.response);
+      
+      let errorMessage = 'Something went wrong. Please try again later.';
+      
+      if (error.code === 'ECONNABORTED') {
+        errorMessage = 'Request timed out. Please check your connection and try again.';
+      } else if (error.response) {
+        errorMessage = error.response.data?.message || `Server error: ${error.response.status}`;
+      } else if (error.request) {
+        errorMessage = 'Unable to connect to server. Please check your internet connection.';
+      }
+      
       setStatus({
         submitted: false,
         submitting: false,
         info: {
           error: true, 
-          msg: error.response?.data?.message || 'Something went wrong. Please try again later.'
+          msg: errorMessage
         },
       });
     }
@@ -166,6 +190,13 @@ const Contact = () => {
               <h3 className="font-serif text-2xl font-semibold text-primary-800 dark:text-primary-200 mb-6">
                 Send Me a Message
               </h3>
+              
+              {/* Debug info - remove this in production */}
+              <div className="mb-4 p-3 bg-gray-100 dark:bg-gray-700 rounded text-sm">
+                <p><strong>API URL:</strong> {API_URL}</p>
+                <p><strong>Environment:</strong> {import.meta.env.MODE}</p>
+              </div>
+              
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div>
                   <label htmlFor="name" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">

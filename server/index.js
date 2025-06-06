@@ -12,11 +12,19 @@ const PORT = process.env.PORT || 5000;
 // Middleware
 app.use(cors({
   origin: process.env.NODE_ENV === 'production' 
-    ? 'https://interior-designer-gold.vercel.app/' 
+    ? [
+        'https://vercel.com/shriyansh-ozarkars-projects/interior-designer/DgzcKf3xtK2QdEMJWGpqNJBkaU6y',
+        'https://interior-designer-gold.vercel.app/',
+        /\.vercel\.app$/
+      ]
     : 'http://localhost:5173',
-  credentials: true
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
 }));
-app.use(express.json());
+
+app.use(express.json({ limit: '10mb' }));
+app.use(express.urlencoded({ extended: true }));
 
 // Connect to MongoDB
 mongoose.connect(process.env.MONGODB_URI)
@@ -28,7 +36,12 @@ app.get('/', (req, res) => {
   res.json({ 
     message: 'Elegance Interiors API is running!',
     status: 'healthy',
-    timestamp: new Date().toISOString()
+    timestamp: new Date().toISOString(),
+    endpoints: [
+      'GET /',
+      'GET /health',
+      'POST /api/contact'
+    ]
   });
 });
 
@@ -37,32 +50,46 @@ app.get('/health', (req, res) => {
   res.status(200).json({ 
     status: 'healthy',
     uptime: process.uptime(),
-    timestamp: new Date().toISOString()
+    timestamp: new Date().toISOString(),
+    database: mongoose.connection.readyState === 1 ? 'connected' : 'disconnected'
   });
 });
 
 // API Routes
 app.post('/api/contact', async (req, res) => {
   try {
+    console.log('Received contact form submission:', req.body);
+    
     const { name, email, phone, message } = req.body;
 
     if (!name || !email || !message) {
-      return res.status(400).json({ message: 'Please provide name, email, and message.' });
+      console.log('Missing required fields');
+      return res.status(400).json({ 
+        message: 'Please provide name, email, and message.',
+        received: req.body 
+      });
     }
 
     const newContact = new Contact({
-      name,
-      email,
-      phone,
-      message,
+      name: name.trim(),
+      email: email.trim(),
+      phone: phone ? phone.trim() : '',
+      message: message.trim(),
     });
 
-    await newContact.save();
+    const savedContact = await newContact.save();
+    console.log('Contact saved successfully:', savedContact._id);
     
-    res.status(200).json({ message: 'Message sent successfully!' });
+    res.status(200).json({ 
+      message: 'Message sent successfully!',
+      id: savedContact._id
+    });
   } catch (error) {
     console.error('Error saving contact:', error);
-    res.status(500).json({ message: 'Server error. Please try again later.' });
+    res.status(500).json({ 
+      message: 'Server error. Please try again later.',
+      error: process.env.NODE_ENV === 'development' ? error.message : undefined
+    });
   }
 });
 
@@ -70,6 +97,7 @@ app.post('/api/contact', async (req, res) => {
 app.use('*', (req, res) => {
   res.status(404).json({ 
     message: 'Route not found',
+    requestedPath: req.originalUrl,
     availableRoutes: [
       'GET /',
       'GET /health',
@@ -91,4 +119,5 @@ app.use((error, req, res, next) => {
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
   console.log(`Environment: ${process.env.NODE_ENV || 'development'}`);
+  console.log(`MongoDB URI configured: ${process.env.MONGODB_URI ? 'Yes' : 'No'}`);
 });
