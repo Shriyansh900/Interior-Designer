@@ -10,7 +10,7 @@ const Footer = () => {
           {/* Brand */}
           <div className="md:col-span-1">
             <h2 className="font-serif text-2xl font-bold mb-4">
-              Elegance<span className="text-accent-400">Interiors</span>
+              Studio<span className="text-accent-400">Maanikh</span>
             </h2>
             <p className="text-gray-300 mb-6">
               Creating timeless, elegant spaces that reflect your unique lifestyle.
@@ -141,7 +141,7 @@ const Footer = () => {
 
         <div className="border-t border-white/10 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
           <p className="text-gray-400 text-sm mb-4 md:mb-0">
-            &copy; {new Date().getFullYear()} Elegance Interiors. All rights reserved.
+            &copy; {new Date().getFullYear()} Studio Maanikh. All rights reserved.
           </p>
           <Link
             to="hero"

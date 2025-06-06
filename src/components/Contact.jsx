@@ -191,11 +191,6 @@ const Contact = () => {
                 Send Me a Message
               </h3>
               
-              {/* Debug info - remove this in production */}
-              <div className="mb-4 p-3 bg-gray-100 dark:bg-gray-700 rounded text-sm">
-                <p><strong>API URL:</strong> {API_URL}</p>
-                <p><strong>Environment:</strong> {import.meta.env.MODE}</p>
-              </div>
               
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div>
