@@ -54,7 +54,7 @@ const Navbar = () => {
             className="cursor-pointer"
           >
             <h1 className="font-serif text-2xl font-bold text-primary-800 dark:text-primary-200">
-              Elegance<span className="text-accent-500">Interiors</span>
+              Studio<span className="text-accent-500">Maanikh</span>
             </h1>
           </Link>
 

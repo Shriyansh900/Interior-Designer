@@ -39,7 +39,7 @@ const Hero = () => {
             transition={{ delay: 0.4, duration: 0.8 }}
             className="font-serif text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6"
           >
-            Elegance Interiors
+            Studio Maanikh
           </motion.h1>
           
           <motion.p 

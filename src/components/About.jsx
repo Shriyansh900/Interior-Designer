@@ -30,11 +30,11 @@ const About = () => {
           transition={{ duration: 0.6 }}
           className="max-w-3xl mx-auto mb-16 text-center"
         >
-          <h2 className="font-serif text-3xl md:text-4xl font-bold text-primary-800 mb-4">
+          <h2 className="font-serif text-3xl md:text-4xl font-bold text-primary-800 dark:text-primary-200 mb-4">
             About Me
           </h2>
           <div className="w-20 h-1 bg-accent-500 mx-auto mb-6"></div>
-          <p className="text-gray-600 leading-relaxed">
+          <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
             With over 10 years of experience in interior design, I create spaces that are both beautiful and functional, tailored to each client's unique lifestyle and preferences.
           </p>
         </motion.div>
@@ -62,13 +62,13 @@ const About = () => {
               </div>
             </div>
             <div>
-              <h3 className="font-serif text-2xl font-semibold text-primary-800 mb-4">
+              <h3 className="font-serif text-2xl font-semibold text-primary-800 dark:text-primary-200 mb-4">
                 My Design Philosophy
               </h3>
-              <p className="text-gray-600 mb-4 leading-relaxed">
+              <p className="text-gray-600 dark:text-gray-300 mb-4 leading-relaxed">
                 I believe that great design should be a perfect balance of beauty and functionality. Every space tells a story, and I work closely with my clients to ensure their unique narrative is woven into every aspect of the design.
               </p>
-              <p className="text-gray-600 leading-relaxed">
+              <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
                 My approach combines timeless design principles with contemporary trends, creating spaces that feel both current and enduring. I prioritize sustainable materials and practices whenever possible, believing that beautiful spaces should also be responsible ones.
               </p>
             </div>
@@ -83,7 +83,7 @@ const About = () => {
             transition={{ duration: 0.6, delay: 0.4 }}
             className="space-y-8"
           >
-            <h3 className="font-serif text-2xl font-semibold text-primary-800 mb-6">
+            <h3 className="font-serif text-2xl font-semibold text-primary-800 dark:text-primary-200 mb-6">
               Education & Qualifications
             </h3>
             
@@ -94,7 +94,7 @@ const About = () => {
                   <GraduationCap className="text-accent-600" size={20} />
                 </div>
                 <div>
-                  <h4 className="text-lg font-semibold text-primary-700">Master of Interior Architecture</h4>
+                  <h4 className="text-lg font-semibold text-primary-800 dark:text-primary-200">Master of Interior Architecture</h4>
                   <p className="text-gray-600">Parsons School of Design, New York</p>
                   <p className="text-sm text-gray-500">2010 - 2012</p>
                 </div>
