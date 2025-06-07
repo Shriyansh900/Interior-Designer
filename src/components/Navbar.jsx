@@ -39,9 +39,9 @@ const Navbar = () => {
         initial={{ y: -100 }}
         animate={{ y: 0 }}
         transition={{ duration: 0.8, ease: "easeOut" }}
-        className={`fixed w-full z-50 transition-all duration-500 ${
+        className={`fixed w-full z-50 transition-all duration-200 ${
           scrolled
-            ? 'bg-white/95 dark:bg-gray-900/95 backdrop-blur-lg shadow-lg border-b border-gray-200/20 dark:border-gray-700/20 py-3'
+            ? 'bg-white/95 dark:bg-gray-900/95 backdrop-blur-sm shadow-lg border-b border-gray-200/20 dark:border-gray-700/20 py-2'
             : 'bg-transparent py-6'
         }`}
       >
@@ -63,7 +63,7 @@ const Navbar = () => {
               >
                 <div className="relative">
                   <div className="w-10 h-10 bg-gradient-to-br from-primary-600 to-accent-600 rounded-lg flex items-center justify-center shadow-lg">
-                    <span className="text-white font-bold text-lg">M</span>
+                    <span className="text-white font-semibold text-lg">SM</span>
                   </div>
                   <div className="absolute -inset-1 bg-gradient-to-br from-primary-600 to-accent-600 rounded-lg blur opacity-30 group-hover:opacity-50 transition-opacity"></div>
                 </div>
@@ -186,7 +186,7 @@ const Navbar = () => {
                 <div className="flex items-center justify-between p-6 border-b border-gray-200 dark:border-gray-700">
                   <div className="flex items-center space-x-3">
                     <div className="w-8 h-8 bg-gradient-to-br from-primary-600 to-accent-600 rounded-lg flex items-center justify-center">
-                      <span className="text-white font-bold">M</span>
+                      <span className="text-white font-semibold">SM</span>
                     </div>
                     <div>
                       <h2 className="font-serif text-lg font-bold text-primary-800 dark:text-primary-200">
